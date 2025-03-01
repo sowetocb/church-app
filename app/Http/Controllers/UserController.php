@@ -8,6 +8,14 @@ use App\Models\Event;
 
 class UserController extends Controller
 {
+    
+    public function index()
+    {
+        // Fetch users with pagination (10 per page)
+        $users = User::paginate(10);
+        return view('admin.users.index', compact('users'));
+    }
+    
     public function UserDashboard(Request $request)
 
     {
