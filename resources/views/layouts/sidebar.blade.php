@@ -53,21 +53,21 @@
           <ul class="menu-sub">
             <li class="menu-item">
               <a href="{{ route('reports.myDonations') }}" class="menu-link">
-                <div class="text-truncate" data-i18n="All Donations">My Donations</div>
+                <div class="text-truncate" data-i18n="All Donations">causes & Donations</div>
               </a>
             </li>
             
             
             
               
-           
+            @if(auth()->check() && auth()->user()->role === 'admin')
               <li class="menu-item">
                 <a href="{{ route('donations.causes_donations') }}" class="menu-link">
-                  <div class="text-truncate" data-i18n="All Donations">My Donors</div>
+                  <div class="text-truncate" data-i18n="All Donations">Donors</div>
                 </a>
               </li>
             </ul>
-         
+         @endif
             </li>
          
           <!-- ... existing menu code ... -->

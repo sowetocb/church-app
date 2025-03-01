@@ -4,12 +4,16 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use App\Models\Event;
 
 class UserController extends Controller
 {
     public function UserDashboard(Request $request)
+
     {
-       return view('user.user_dashboard');
+        $events = Event::latest()->paginate(6);
+
+       return view('user.user_dashboard',compact('events'));
     }
 
    
