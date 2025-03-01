@@ -12,13 +12,7 @@ class UserController extends Controller
        return view('user.user_dashboard');
     }
 
-    public function index()
-    {
-        // Fetch users with pagination (10 per page)
-        $users = User::paginate(10);
-        return view('admin.users.index', compact('users'));
-    }
-
+   
     public function updateRole(Request $request, User $user)
     {
         $request->validate([

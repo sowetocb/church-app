@@ -12,7 +12,9 @@
         <div class="alert alert-success">{{ session('success') }}</div>
       @endif
         <h2>Upcoming Events</h2>
+        @if(auth()->check() && auth()->user()->role === 'admin')
         <a href="{{ route('event.create') }}" class="btn btn-primary">Add Event</a>
+        @endif
     </div>
 
     <div class="row row-cols-1 row-cols-md-3 g-4">
@@ -27,7 +29,9 @@
                         <p class="card-text">{{ $event->description }}</p>
                         <div class="d-flex align-items-center justify-content-between">
                             <p class="mb-0"><strong>Date:</strong> {{ $event->event_date }}</p>
+                           
                             <!-- Delete Form (Hidden) -->
+                            @if(auth()->check() && auth()->user()->role === 'admin')
 <form id="delete-form-{{ $event->id }}" action="{{ route('event.destroy', $event->id) }}" method="POST" style="display: none;">
     @csrf
     @method('DELETE')
@@ -35,7 +39,7 @@
 
 <!-- Clickable Trash Icon -->
 <i class="fa-regular fa-trash-can" style="color: #ca1c1c; cursor: pointer;" onclick="confirmDelete('{{ $event->id }}')"></i>
-
+@endif
 <!-- JavaScript for Confirmation -->
 <script>
     function confirmDelete(eventId) {

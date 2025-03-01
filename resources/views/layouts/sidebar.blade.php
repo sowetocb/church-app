@@ -25,39 +25,57 @@
         
         <ul class="menu-sub">
          
-            <li class="menu-item active">
-              <a href="{{url('admin/dashboard')}}" class="menu-link">
-                <div class="text-truncate" data-i18n="Analytics">home
-                </div>
-              </a>
-            </li>
-
           <li class="menu-item active">
+
+            <a href="{{ Auth::check() && Auth::user()->role === 'admin' ? url('admin/dashboard') : url('user/dashboard') }}" class="menu-link">
+              <i class="menu-icon tf-icons bx bx-home" style="color: rgb(44, 42, 42) ;" ></i>
+
+              <div class="text-truncate" data-i18n="Analytics">home</div>
+            </a>
+          </li>
+          
+          <li class="menu-item active">
+           
+
             <a href="{{ url('event')}}" class="menu-link">
+              <i class="menu-icon tf-icons bx bx-calendar-event" style="color: rgb(44, 42, 42);"></i>
+
               <div class="text-truncate" data-i18n="Analytics">events</div>
             </a>
           </li>
+      
           <li class="menu-item">
-            <a
-              href="{{url('causes-donations')}}"
-              target="_blank"
-              class="menu-link">
-              <div class="text-truncate" data-i18n="CRM">Donation</div>
-            </a>
-          </li>
-          <li class="menu-item">
-            <a
-              href="{{ route('admin.users.index') }}"
-              target="_blank"
-              class="menu-link">
-              <div class="text-truncate" data-i18n="Logistics">User MGT</div>  
-            </a>
-          </li>
+          <a href="javascript:void(0);" class="menu-link menu-toggle">
+            <i class="menu-icon tf-icons bx bx-donate-heart" style="color: rgb(44, 42, 42) ; " ></i>
+
+            <div class="text-truncate" data-i18n="Reports">Donations</div>
+          </a>
+          <ul class="menu-sub">
+            <li class="menu-item">
+              <a href="{{ route('reports.myDonations') }}" class="menu-link">
+                <div class="text-truncate" data-i18n="All Donations">My Donations</div>
+              </a>
+            </li>
+            
+            
+            
+              
+           
+              <li class="menu-item">
+                <a href="{{ route('donations.causes_donations') }}" class="menu-link">
+                  <div class="text-truncate" data-i18n="All Donations">My Donors</div>
+                </a>
+              </li>
+            </ul>
+         
+            </li>
+         
           <!-- ... existing menu code ... -->
 <!-- Add this new Reports menu item -->
+@if(auth()->check() && auth()->user()->role === 'admin')
 <li class="menu-item">
   <a href="javascript:void(0);" class="menu-link menu-toggle">
-    <i class="menu-icon tf-icons bx bx-chart"></i>
+    <i class="menu-icon tf-icons bx bx-chart" style="color: rgb(44, 42, 42);  "></i>
     <div class="text-truncate" data-i18n="Reports">Reports</div>
   </a>
   <ul class="menu-sub">
@@ -81,8 +99,19 @@
         <div class="text-truncate" data-i18n="Paid vs. Pending By Cause">Paid & Pending Cause</div>
       </a>
     </li>
-   
+   @endif
   </ul>
+  @if(auth()->check() && auth()->user()->role === 'admin')
+  <li class="menu-item">
+    <a
+      href="{{ route('admin.users.index') }}"
+      target="_blank"
+      class="menu-link">
+      <div class="text-truncate" data-i18n="Logistics">User MGT</div>  
+    </a>
+  </li></li>
+  @endif
+
 </li>
 </aside>
   <!-- / Menu -->
